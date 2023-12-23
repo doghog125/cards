@@ -37,21 +37,21 @@
             this.y = y;
             this.speed = speed;
             this.weight = weight;
-            this.yInertia = yInertia;
-            this.bounceX = bounceX;
-            this.bounceDecrease = bounceDecrease;
+            this.yInertia = 0.2;
+            this.bounceX = 150;
+            this.bounceDecrease = 0;
 
         };
 
-        let Queen = function(x, y, speed, weight, yInertia, bounceX, bounceDecrease) {
+        let Queen = function(x, y, speed, weight) {
 
-            Card.call(this, document.querySelector("#queen-source"),x, y, speed, weight, yInertia, bounceX, bounceDecrease);
+            Card.call(this, document.querySelector("#queen-source"),x, y, speed, weight);
 
         };
 
-        let ThreeCard = function(x, y, speed, weight, yInertia, bounceX, bounceDecrease) {
+        let ThreeCard = function(x, y, speed, weight) {
 
-            Card.call(this, document.querySelector("#three-source"), x, y, speed, weight, yInertia, bounceX, bounceDecrease);
+            Card.call(this, document.querySelector("#three-source"), x, y, speed, weight);
 
         };
 
@@ -96,21 +96,23 @@
 
             } else {
 
-              this.y -= this.weight + this.bounceX * this.yInertia * -1;
+              this.y -= this.weight + this.bounceX * this.yInertia;
 
             };
 
 
             };
 
-            let queen = new Queen(2500, 500, 20, 40, -0.2, 150, 0);
-            let queen2 = new Queen(2500, 200, 20, 40, -0.2, 150, 0);
-            let queen3 = new Queen(2500, 0, 60, 40, -0.2, 150, 0);
-            let threeCard = new ThreeCard(2500, 0, 60, 40, -0.2, 150, 0);
+            let queen = new Queen(2500, 500, 20, 25);
+            let queen2 = new Queen(2500, 200, 20, 20);
+            let queen3 = new Queen(2500, 0, 20, 15);
+            let queen4 = new Queen(2500, 0, 20, 10);
+            let threeCard = new ThreeCard(2500, 0, 20, 5);
 
             setInterval(() => queen.drawCard(), 20);
             setInterval(() => queen2.drawCard(), 20);
             setInterval(() => queen3.drawCard(), 20);
+            setInterval(() => queen4.drawCard(), 20);
             setInterval(() => threeCard.drawCard(), 20);
 
         </script>
