@@ -22,7 +22,7 @@
 
     <canvas id="draw-zone"> </canvas>
 
-    <img id="source" src="card1.png" style="display: none;"> </img>
+    <img id="queen-source" src="card1.png" style="display: none;"> </img>
 
         <script>
 
@@ -55,29 +55,17 @@
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
- //OLD CARD OBJECT
-       //let Card = {
-        //img: document.querySelector("#source"),
-        //x:2500,
-        //y:500,
-        //speed: 20,
-        //weight: 40,
-        //yInertia: -0.2,
-        //maxHeight: 100,
-        //bounceX: 150,
-        //bounceDecrease: 0
-        //};
 
         Queen.prototype.drawCard = function() {
 
-            console.log("this.bounceDecrease=" + this.bounceDecrease);
-            console.log("loop works!");
-            console.log("this.y=" + this.y);
-            console.log("floor=" + floor);
-            console.log("this.bounceX=" + this.bounceX);
-            console.log("this.x=" + this.x);
-            console.log("this.speed=" + this.speed);
-            console.log("this.img=" + this.img);
+            //console.log("this.bounceDecrease=" + this.bounceDecrease);
+           // console.log("loop works!");
+            //console.log("this.y=" + this.y);
+            //console.log("floor=" + floor);
+            //console.log("this.bounceX=" + this.bounceX);
+            //console.log("this.x=" + this.x);
+            //console.log("this.speed=" + this.speed);
+            //console.log("this.img=" + this.img);
             context.drawImage(this.img, this.x, this.y);
             document.querySelector("body").appendChild(this.img);
             this.x -= this.speed;
@@ -108,9 +96,13 @@
 
             };
 
-            let queen = new Queen(document.querySelector("#source"), 2500, 500, 20, 40, -0.2, 150, 0);
+            let queen = new Queen(document.querySelector("#queen-source"), 2500, 500, 20, 40, -0.2, 150, 0);
+            let queen2 = new Queen(document.querySelector("#queen-source"), 2500, 200, 20, 40, -0.2, 150, 0);
+            let queen3 = new Queen(document.querySelector("#queen-source"), 2500, 0, 20, 40, -0.2, 150, 0);
 
             setInterval(() => queen.drawCard(), 20);
+            setInterval(() => queen2.drawCard(), 20);
+            setInterval(() => queen3.drawCard(), 20);
 
         </script>
 
