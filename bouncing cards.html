@@ -29,67 +29,88 @@
         let canvas = document.querySelector("#draw-zone");
         let context = canvas.getContext("2d");
 
-       let Card = {
-        img: document.querySelector("#source"),
-        x:2500,
-        y:500,
-        radius: 100,
-        startAngle: 0,
-        endAngle: 2 * Math.PI,
-        speed: 20,
-        weight: 40,
-        yInertia: -0.2,
-        maxHeight: 100,
-        bounceX: 150,
-        bounceDecrease: 0
+        let Card = function(img, x, y, speed, weight, yInertia, bounceX, bounceDecrease) {
+
+            this.img = img;
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+            this.weight = weight;
+            this.yInertia = yInertia;
+            this.bounceX = bounceX;
+            this.bounceDecrease = bounceDecrease;
+
         };
+
+        let Queen = function(img, x, y, speed, weight, yInertia, bounceX, bounceDecrease) {
+
+            Card.call(this, img, x, y, speed, weight, yInertia, bounceX, bounceDecrease);
+
+        };
+
+
+        Queen.prototype = Object.create(Card.prototype);
 
         let floor = window.innerHeight - 100;
 
-        console.log(Card);
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+ //OLD CARD OBJECT
+       //let Card = {
+        //img: document.querySelector("#source"),
+        //x:2500,
+        //y:500,
+        //speed: 20,
+        //weight: 40,
+        //yInertia: -0.2,
+        //maxHeight: 100,
+        //bounceX: 150,
+        //bounceDecrease: 0
+        //};
 
-        setInterval(drawCard, 20);
+        Queen.prototype.drawCard = function() {
 
-        function drawCard() {
+            console.log("this.bounceDecrease=" + this.bounceDecrease);
+            console.log("loop works!");
+            console.log("this.y=" + this.y);
+            console.log("floor=" + floor);
+            console.log("this.bounceX=" + this.bounceX);
+            console.log("this.x=" + this.x);
+            console.log("this.speed=" + this.speed);
+            console.log("this.img=" + this.img);
+            context.drawImage(this.img, this.x, this.y);
+            document.querySelector("body").appendChild(this.img);
+            this.x -= this.speed;
 
-            console.log("card.bounceDecrease=" + Card.bounceDecrease);
-            //console.log("loop works!");
-            //console.log("Card.y=" + Card.y)
-            //console.log("floor=" + floor);
-            //console.log("Card.bounceX=" + Card.bounceX);
-            //console.log("Card.x=" + Card.x);
-            context.drawImage(Card.img, Card.x, Card.y);
-            document.querySelector("body").appendChild(Card.img);
-            Card.x -= Card.speed;
 
-
-            if (Card.y > floor) {
+            if (this.y > floor) {
 
               console.log("bounce!");
-              Card.bounceX = 150 - Card.bounceDecrease;
-              Card.bounceDecrease += 80;
+              this.bounceX = 150 - this.bounceDecrease;
+              this.bounceDecrease += 80;
 
               } else {
 
-                Card.bounceX -= Card.speed;
+                this.bounceX -= this.speed;
 
             };
 
-            if (Card.bounceDecrease > 320) {
+            if (this.bounceDecrease > 320) {
 
-              Card.y = Card.y;
+              this.y = this.y;
 
             } else {
 
-              Card.y -= Card.weight + Card.bounceX * Card.yInertia * -1;
+              this.y -= this.weight + this.bounceX * this.yInertia * -1;
 
             };
 
 
-            }
+            };
+
+            let queen = new Queen(document.querySelector("#source"), 2500, 500, 20, 40, -0.2, 150, 0);
+
+            setInterval(() => queen.drawCard(), 20);
 
         </script>
 
