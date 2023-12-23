@@ -22,12 +22,15 @@
 
     <canvas id="draw-zone"> </canvas>
 
+    <img id="source" src="card1.png" style="display: none;"> </img>
+
         <script>
 
         let canvas = document.querySelector("#draw-zone");
         let context = canvas.getContext("2d");
 
        let card = {
+        img: document.querySelector("#source"),
         x:2500,
         y:500,
         radius: 100,
@@ -56,11 +59,8 @@
             console.log("floor=" + floor);
             console.log("card.bounceX=" + card.bounceX);
             console.log("card.x=" + card.x);
-            context.beginPath();
-            context.arc(card.x, card.y, card.radius, card.startAngle, card.endAngle)
-            context.stroke();
-            context.fillStyle = "red";
-            context.fill();
+            context.drawImage(card.img, card.x, card.y);
+            document.querySelector("body").appendChild(card.img);
             card.y -= 40 + card.bounceX * card.yInertia * -1;
             card.x -= card.speed;
 
