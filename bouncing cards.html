@@ -29,7 +29,7 @@
         let canvas = document.querySelector("#draw-zone");
         let context = canvas.getContext("2d");
 
-       let card = {
+       let Card = {
         img: document.querySelector("#source"),
         x:2500,
         y:500,
@@ -37,48 +37,54 @@
         startAngle: 0,
         endAngle: 2 * Math.PI,
         speed: 20,
-        weight: 20,
+        weight: 40,
         yInertia: -0.2,
         maxHeight: 100,
-        bounceX: 100
+        bounceX: 150,
+        bounceDecrease: 0
         };
 
-        let floor = window.innerHeight;
+        let floor = window.innerHeight - 100;
 
-        console.log(card);
+        console.log(Card);
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        setInterval(drawCircle, 20);
+        setInterval(drawCard, 20);
 
-        function drawCircle() {
+        function drawCard() {
 
-            console.log("loop works!");
-            console.log("card.y=" + card.y)
-            console.log("floor=" + floor);
-            console.log("card.bounceX=" + card.bounceX);
-            console.log("card.x=" + card.x);
-            context.drawImage(card.img, card.x, card.y);
-            document.querySelector("body").appendChild(card.img);
-            card.y -= 40 + card.bounceX * card.yInertia * -1;
-            card.x -= card.speed;
+            console.log("card.bounceDecrease=" + Card.bounceDecrease);
+            //console.log("loop works!");
+            //console.log("Card.y=" + Card.y)
+            //console.log("floor=" + floor);
+            //console.log("Card.bounceX=" + Card.bounceX);
+            //console.log("Card.x=" + Card.x);
+            context.drawImage(Card.img, Card.x, Card.y);
+            document.querySelector("body").appendChild(Card.img);
+            Card.x -= Card.speed;
 
 
-            if (card.y > floor) {
+            if (Card.y > floor) {
 
               console.log("bounce!");
-              card.bounceX = 100;
+              Card.bounceX = 150 - Card.bounceDecrease;
+              Card.bounceDecrease += 80;
 
               } else {
 
-                card.bounceX -= card.speed;
+                Card.bounceX -= Card.speed;
 
             };
 
-            if (card.x === card.bounceX) {
+            if (Card.bounceDecrease > 320) {
 
-              console.log("matching!")
+              Card.y = Card.y;
+
+            } else {
+
+              Card.y -= Card.weight + Card.bounceX * Card.yInertia * -1;
 
             };
 
